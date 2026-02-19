@@ -1,0 +1,27 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>HOME</h1>
+    <button>HOME</body>
+    <button>RESERVAR</buttonn>
+    <button>ENTRAR</button>
+
+    <h1>Salas</h1>
+    {%for salas in sala%}
+    <p>Nome: {{salas.nome}}, Numero:{{salas.numsala}} , Andar:{{salas.andar}}, Recursos:{{salas.recursos}},Capacidade:{{salas.capacidade}}</p>
+    {%endfor%}
+
+        <h1>Usuarios</h1>
+    {%for usuarios in usuario%}
+    <p>Nome: {{usuarios.nome}}, Email:{{usuarios.email}} , Cpf:{{usuarios.cpf}}, Ativo:{{usuarios.ativo}},Nivel:{{usuarios.nivel}}</p>
+    {%endfor%}   
+    
+    <h1>Resenhas</h1>
+    {%for r in reserva%}
+    <p>Sala: {{r.sala}}, Usuario:{{r.usuario}}, Data{{r.data}}, Status:{{r.status}}</p>
+    {%endfor%}
+</body>
