@@ -1,0 +1,16 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>ONDAS CEREBRAIS</h1>
+    <form method="POST">
+    {% csrf_token %}
+        <input type="text" id="nome" name="nome" placeholder="Nome">
+        <input type="password" id="cpf" name="cpf" placeholder="Cpf">
+        <button type="submit" >ENTRAR</button>
+    </form>
+    <a href="{% url 'novo-usuario' %}">Criar conta</a></td>
+   
+</body>

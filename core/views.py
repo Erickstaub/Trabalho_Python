@@ -13,3 +13,18 @@ def home(request):
 
 
   return render(request, "core/home.html", {'sala': salas, 'usuario': usuarios, 'reserva': reservas})
+
+def login(request):
+     usuarios = Usuario.objects.all()
+     if request.method == "POST":
+        nick = request.POST.get("nome")
+        cpf = request.POST.get("cpf")
+        usu = Usuario.objects.get(nome= nick, cpf = cpf)
+       
+         
+
+
+     return render(request, "core/login.html", {'usuario': usuarios})
+
+def novoU(request):
+   return render(request, "core/cadU.html")
