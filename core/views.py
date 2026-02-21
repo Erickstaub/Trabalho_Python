@@ -12,7 +12,7 @@ def home(request):
    
 
 
-  return render(request, "core/home.html", {'sala': salas, 'usuario': usuarios, 'reserva': reservas})
+  return render(request, "core/base.html", {'sala': salas, 'usuario': usuarios, 'reserva': reservas})
 
 def login(request):
      usuarios = Usuario.objects.all()
