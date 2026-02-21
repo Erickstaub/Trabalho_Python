@@ -63,3 +63,5 @@ def menu(request):
 def salasreservadas(request):
      reserva = Reserva.objects.all()
      return render(request, "core/salasreservas.html", {'reserva': reserva})
+
+
