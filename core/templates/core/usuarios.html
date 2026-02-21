@@ -1,0 +1,39 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+  <link rel="stylesheet" href="{% static 'core/menu.css' %}">
+</head>
+{% if conta.nivel == '3' %}
+<body>
+    <h1>Usuarios</h1>
+
+     <table>
+        <tr>
+        <th>  Nome  </th>
+        <th>  Cpf  </th>
+        <th>  Email  </th>
+        <th>  Nivel   </th>
+      </tr>
+      {% for u in usuarios %}
+      
+      <tr>
+        <td>{{ u.nome }}</td>
+        <td>{{ u.cpf }}</td>
+        <td>{{u.email}}
+        <td>{{ u.nivel }}</td>
+
+        
+      </tr>
+     
+      {% endfor %}
+      </table>
+</body>
+{% else %}
+<body>
+    <h1>Acesso Negado</h1>
+    <p>Você não tem permissão para acessar esta página.</p>
+</body>
+{% endif %}

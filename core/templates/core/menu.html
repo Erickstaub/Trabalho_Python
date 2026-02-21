@@ -1,11 +1,55 @@
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-  
+  <link rel="stylesheet" href="{% static 'core/menu.css' %}">
 </head>
 <body>
-    <button onclick="SR()" >Salas Reservadas</button>
+    {% if usuario %}
+   <nav>
+  <ul>
+    <li><a href="#">HOME</a></li>
+    <li><a href="#">LOGIN</a></li>
+            {%if usuario.nivel == '1'%}
+     <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
+        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
+
+        {%elif usuario.nivel == '2'%}
+        <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
+        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
+        <li><a href="/novasala">NOVA SALA</a></li>
+        
+        {%elif usuario.nivel == '3'%}
+        <li><a href="/usuarios">USUARIOS</a></li>
+        <li><a href="/salas">SALAS</a></li>
+        {%endif%}
+ 
+  </ul>
+  <div class="auth-buttons">
+
+    <a class="usu">{{ usuario.nome }}</a>
+
+  </div>
+</nav>
+    
+        {%if usuario.nivel == '1'%}
+        <button>Salas Reservadas</button>
+        <button>Reservar Salas</button>
+
+        {%elif usuario.nivel == '2'%}
+       
+        <button>Nova Sala</button>
+        <button>Salas Reservadas</button>
+        <button>Reservar Salas</button>
+        {%elif usuario.nivel == '3'%}
+        <div class="admin-button">
+        <button>Usuarios</button>
+        <button>Salas</button>
+        </div>
+        {%endif%}
+    {% endif %}
 
 
 
@@ -13,6 +57,9 @@
 <script>
     function SR(){
         window.location.href = '/salareservadas'
+    }
+    function RS(){
+        window.location.href = '/reservarsala'
     }
 
 

@@ -15,17 +15,21 @@ def home(request):
   return render(request, "core/base.html", {'sala': salas, 'usuario': usuarios, 'reserva': reservas})
 
 def login(request):
-     usuarios = Usuario.objects.all()
-     if request.method == "POST":
+    if request.method == "POST":
         nick = request.POST.get("nome")
         cpf = request.POST.get("cpf")
-        usu = Usuario.objects.get(nome= nick, cpf = cpf)
+
+        usu = Usuario.objects.filter(nome=nick, cpf=cpf).first()
+
         if usu:
+            request.session['usuario_id'] = usu.id
             return redirect('/menu')
-         
+        else:
+            return render(request, "core/login.html", {
+                'erro': 'Usuário ou CPF inválido'
+            })
 
-
-     return render(request, "core/login.html", {'usuario': usuarios})
+    return render(request, "core/login.html")
 
 def novoU(request):
      
@@ -44,24 +48,31 @@ def novoU(request):
 
   return render(request, "core/cadU.html")
 def menu(request):
-     
-  if request.method == "POST":
-        nick = request.POST.get("nome")
-        cpf = request.POST.get("cpf")
-        email =request.POST.get("email")
+    usuario_id = request.session.get('usuario_id')
 
-        Usuario.objects.create(nome=nick,cpf=cpf,email=email,)
-        
-        
+    if not usuario_id:
+        return redirect('/')
 
-        
+    usuario = Usuario.objects.get(id=usuario_id)
 
-
-
-  return render(request, "core/menu.html")
+    return render(request, "core/menu.html", {'usuario': usuario})
 
 def salasreservadas(request):
      reserva = Reserva.objects.all()
      return render(request, "core/salasreservas.html", {'reserva': reserva})
+
+def usuarios(request):
+    usuario_id = request.session.get('usuario_id')
+
+    if not usuario_id:
+        return redirect('/')
+
+    usuario = Usuario.objects.get(id=usuario_id)
+    usuarios = Usuario.objects.all()
+    return render(request, "core/usuarios.html", {'usuarios': usuarios, 'conta': usuario})
+
+def salas(request):
+    salas = Sala.objects.all()
+    return render(request, "core/salas.html", {'salas': salas})
 
 
