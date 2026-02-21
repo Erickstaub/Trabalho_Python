@@ -20,11 +20,46 @@ def login(request):
         nick = request.POST.get("nome")
         cpf = request.POST.get("cpf")
         usu = Usuario.objects.get(nome= nick, cpf = cpf)
-       
+        if usu:
+            return redirect('/menu')
          
 
 
      return render(request, "core/login.html", {'usuario': usuarios})
 
 def novoU(request):
-   return render(request, "core/cadU.html")
+     
+  if request.method == "POST":
+        nick = request.POST.get("nome")
+        cpf = request.POST.get("cpf")
+        email =request.POST.get("email")
+
+        Usuario.objects.create(nome=nick,cpf=cpf,email=email,)
+        
+        
+
+        
+
+
+
+  return render(request, "core/cadU.html")
+def menu(request):
+     
+  if request.method == "POST":
+        nick = request.POST.get("nome")
+        cpf = request.POST.get("cpf")
+        email =request.POST.get("email")
+
+        Usuario.objects.create(nome=nick,cpf=cpf,email=email,)
+        
+        
+
+        
+
+
+
+  return render(request, "core/menu.html")
+
+def salasreservadas(request):
+     reserva = Reserva.objects.all()
+     return render(request, "core/salasreservas.html", {'reserva': reserva})

@@ -13,8 +13,8 @@ class Usuario(models.Model):
       nome = models.CharField(max_length=100)
       cpf = models.CharField(max_length=100)
       email = models.CharField(max_length=100)
-      ativo = models.BooleanField()
-      nivel = models.CharField(max_length=100)
+      ativo = models.BooleanField(default=True)
+      nivel = models.CharField(max_length=100, default="1")
       def __str__(self):
             return f"{self.nome, self.nivel}"
       

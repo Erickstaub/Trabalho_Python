@@ -8,7 +8,7 @@
     <form method="POST">
     {% csrf_token %}
         <input type="text" id="nome" name="nome" placeholder="Nome">
-        <input type="password" id="cpf" name="cpf" placeholder="Cpf">
+        <input type="text" id="cpf" name="cpf" placeholder="Cpf">
         <button type="submit" >ENTRAR</button>
     </form>
     <a href="{% url 'novo-usuario' %}">Criar conta</a></td>

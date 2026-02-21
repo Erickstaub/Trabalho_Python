@@ -1,14 +1,17 @@
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>HOME</h1>
-    <button>HOME</body>
-    <button>RESERVAR</buttonn>
-    <button>ENTRAR</button>
+{% block title %}Home{% endblock %}
 
-   
-</body>
+{% block content %}
+<div class="container text-center mt-5">
+
+    <h1 class="mb-4 text-primary">HOME</h1>
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a href="#" class="btn btn-primary btn-lg">Home</a>
+        <a href="#" class="btn btn-success btn-lg">Reservar</a>
+        <a href="#" class="btn btn-dark btn-lg">Entrar</a>
+    </div>
+
+</div>
+{% endblock %}
