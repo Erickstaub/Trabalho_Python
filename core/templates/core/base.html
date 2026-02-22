@@ -10,10 +10,63 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Seu CSS -->
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
 </head>
 <body class="bg-light">
-    <h1>konami
+      {% if conta %}
+
+       <nav>
+  <ul>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/login">LOGIN</a></li>
+
+        {%if conta.nivel == '1'%}
+     <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
+        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
+
+        {%elif conta.nivel == '2'%}
+        <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
+        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
+        <li><a href="/novasala">NOVA SALA</a></li>
+        
+        {%elif conta.nivel == '3'%}
+        <li><a href="/usuarios">USUARIOS</a></li>
+        <li><a href="/salas">SALAS</a></li>
+        {%endif%}
+ 
+  </ul>
+  <div class="auth-buttons">
+    <a class="usu" onclick="abredropdown()">{{ conta.nome }}</a>
+    <div id="dropdown" class="dropdown">
+              <a href="/usuarios/{{ conta.id }}/settings">Settings</a>
+      <a href="/logout" >Sair</a>
+      </div>
+  </nav>
+  <script>
+    function abredropdown() {
+        var dropdown = document.getElementById("dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+  {%else%}
+       <nav>
+  <ul>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/login">LOGIN</a></li>
+
+ 
+  </ul>
+  <div class="auth-buttons">
+    <a class="usu" href="/login">Entrar</a>
+  </div>
+  
+  </nav>
+
+{% endif %}
+
+
+    
     {% block content %}
     {% endblock %}
 <!-- teste -->

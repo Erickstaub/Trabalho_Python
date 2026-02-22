@@ -1,28 +1,9 @@
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Usuario</title>
-    <link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
-</head>
-<body>
+{% extends 'core/base.html' %}
+{% block title %}Cadastro de Usuário{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
         {% if conta.nivel == '3' %}
-             <nav>
-  <ul>
-    <li><a href="/">HOME</a></li>
-    <li><a href="/login">LOGIN</a></li>
-
-        <li><a href="/usuarios">USUARIOS</a></li>
-        <li><a href="/salas">SALAS</a></li>
-    
- 
-  </ul>
-  <div class="auth-buttons">
-    <a class="usu" onclick="abredropdown()">{{ conta.nome }}</a>
-    <div id="dropdown" class="dropdown">
-      <a href="/logout" >Sair</a>
-      </div>
-  </nav>
+          
          <div class="form-container">
     <div class="form-header">
         Criar Conta (Administrador)
@@ -62,12 +43,7 @@
     </div>
 
         {%else%}
-          <nav>
-  <ul>
-    <li><a href="/">HOME</a></li>
-    <li><a href="/login">LOGIN</a></li>
-</ul>
-</nav>
+          
             <div class="form-container">
     <div class="form-header">
         
@@ -95,4 +71,6 @@
     </div>
     {%endif%}
    
-</body>
+</div> 
+
+{% endblock %}

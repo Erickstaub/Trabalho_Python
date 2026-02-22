@@ -1,18 +1,21 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
+
 from .models import Sala,Usuario,Reserva
 
 
 # Create your views here.
 def home(request):
-  salas = Sala.objects.all()
-  usuarios = Usuario.objects.all()
-  reservas = Reserva.objects.all()
- 
-   
+   try:
+    usuario_id = request.session.get('usuario_id')
+    usuario = Usuario.objects.get(id=usuario_id)
+
+   except Usuario.DoesNotExist:
+        usuario = None
 
 
-  return render(request, "core/base.html", {'sala': salas, 'usuario': usuarios, 'reserva': reservas})
+
+   return render(request, "core/home.html", {'conta': usuario})
 
 def login(request):
     if request.method == "POST":
@@ -23,24 +26,22 @@ def login(request):
 
         if usu:
             request.session['usuario_id'] = usu.id
+     
             return redirect('/menu')
         else:
-            return render(request, "core/login.html", {
-                'erro': 'Usuário ou CPF inválido'
-            })
+            return render(request, "core/login.html", {'error': 'Usuário ou CPF inválidos.'})
 
     return render(request, "core/login.html")
 
 def novoU(request):
 
-    usuario_id = request.session.get('usuario_id')
-    
-    if usuario_id:
+    try:
+         usuario_id = request.session.get('usuario_id')
+         usuario = Usuario.objects.get(id=usuario_id)
 
-        usuario = Usuario.objects.get(id=usuario_id)
-    else:
-        usuario = Usuario.objects.get(nivel='0')
-    
+    except Usuario.DoesNotExist:
+          usuario = None
+
 
     if request.method == "POST" and request.POST.get("novocomun") == "true":
         nick = request.POST.get("nome")
@@ -67,26 +68,30 @@ def novoU(request):
 
   
 def menu(request):
-    usuario_id = request.session.get('usuario_id')
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
 
-    if not usuario_id:
+    except Usuario.DoesNotExist:
+        usuario = None
         return redirect('/')
 
-    usuario = Usuario.objects.get(id=usuario_id)
-
-    return render(request, "core/menu.html", {'usuario': usuario})
+    return render(request, "core/menu.html", {'conta': usuario})
 
 def salasreservadas(request):
      reserva = Reserva.objects.all()
      return render(request, "core/salasreservas.html", {'reserva': reserva})
 
 def usuarios(request):
-    usuario_id = request.session.get('usuario_id')
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
 
-    if not usuario_id:
+    except Usuario.DoesNotExist:
+        usuario = None
         return redirect('/')
 
-    usuario = Usuario.objects.get(id=usuario_id)
+   
     usuarios = Usuario.objects.all()
 
     return render(request, "core/usuarios.html", {'usuarios': usuarios, 'conta': usuario})
@@ -106,12 +111,13 @@ def logout(request):
 
 def editar_usuario(request, usuario_id):
     usuario = Usuario.objects.get(id=usuario_id)
-    conta_id = request.session.get('usuario_id')
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
 
-    if not conta_id:
+    except Usuario.DoesNotExist:
+        conta = None
         return redirect('/')
-
-    conta = Usuario.objects.get(id=conta_id)
 
     if request.method == "POST" and request.POST.get("deletar") == "true":
         usuario.delete()
@@ -129,3 +135,24 @@ def editar_usuario(request, usuario_id):
     return render(request, "core/editar_usuario.html", {'usuario': usuario, 'conta': conta})
 
 
+def editar_conta(request, conta_id):
+    conta = Usuario.objects.get(id=conta_id)
+    
+
+    if not conta:
+        return redirect('/')
+
+  
+
+    if request.method == "POST" and request.POST.get("deletar") == "true":
+        conta.delete()
+        return redirect('/usuarios')
+
+    if request.method == "POST":
+        conta.nome = request.POST.get("nome")
+        conta.email = request.POST.get("email")
+  
+        conta.save()
+        return redirect('/menu')
+
+    return render(request, "core/settings.html", {'conta': conta})
