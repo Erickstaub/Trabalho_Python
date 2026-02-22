@@ -15,6 +15,7 @@ class Usuario(models.Model):
       email = models.CharField(max_length=100)
       ativo = models.BooleanField(default=True)
       nivel = models.CharField(max_length=100, default="1")
+      foto_perfil = models.URLField(blank=True, null=True)
       def __str__(self):
             return f"{self.nome, self.nivel}"
       

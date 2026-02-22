@@ -22,7 +22,7 @@ def login(request):
         nick = request.POST.get("nome")
         cpf = request.POST.get("cpf")
 
-        usu = Usuario.objects.filter(nome=nick, cpf=cpf).first()
+        usu = Usuario.objects.filter(nome=nick, cpf=cpf, ativo=True).first()
 
         if usu:
             request.session['usuario_id'] = usu.id
@@ -98,8 +98,19 @@ def usuarios(request):
 
 
 def salas(request):
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
+
+    except Usuario.DoesNotExist:
+        usuario = None
+        return redirect('/')
+
+
+
+
     salas = Sala.objects.all()
-    return render(request, "core/salas.html", {'salas': salas})
+    return render(request, "core/salas.html", {'salas': salas, 'conta': usuario})
 
 
 
@@ -151,7 +162,9 @@ def editar_conta(request, conta_id):
     if request.method == "POST":
         conta.nome = request.POST.get("nome")
         conta.email = request.POST.get("email")
-  
+        conta.foto_perfil = request.POST.get("foto_perfil")
+        if conta.foto_perfil == "":
+            conta.foto_perfil = None
         conta.save()
         return redirect('/menu')
 

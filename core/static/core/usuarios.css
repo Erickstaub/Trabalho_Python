@@ -98,9 +98,16 @@ nav ul li a:hover {
 }
 
 nav .auth-buttons {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:  0.2s ease;
 }
+nav .auth-buttons:hover {
+background-color: #e0e0e0;
+}
+
 
 nav .auth-buttons a {
   padding: 0.45rem 1rem;
@@ -311,4 +318,41 @@ nav .auth-buttons .usu:hover {
 .addusuario:hover{
      background: #5562d6;
 }
+nav img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
 
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* controla o espaço entre nome e foto */
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:  0.2s ease;
+}
+
+.user-area:hover {
+    background-color: #e0e0e0; /* cinza ao passar o mouse */
+}
+
+.usu {
+    margin: 0;
+}
+
+.foto-perfil {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
