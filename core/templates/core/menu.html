@@ -6,8 +6,8 @@
     <title>Menu</title>
   <link rel="stylesheet" href="{% static 'core/menu.css' %}">
 </head>
+{% if usuario %}
 <body>
-    {% if usuario %}
    <nav>
   <ul>
     <li><a href="#">HOME</a></li>
@@ -49,12 +49,11 @@
         <button>Salas</button>
         </div>
         {%endif%}
-    {% endif %}
-
-
-
-
-<script>
+        
+        
+        
+        
+        <script>
     function SR(){
         window.location.href = '/salareservadas'
     }
@@ -66,3 +65,6 @@
 </script>
 
 </body>
+{% else %}
+    <p>Usuário não autenticado.</p>
+{% endif %}

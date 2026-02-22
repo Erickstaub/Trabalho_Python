@@ -4,32 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-  <link rel="stylesheet" href="{% static 'core/menu.css' %}">
+  <link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
 </head>
 {% if conta.nivel == '3' %}
 <body>
-    <h1>Usuarios</h1>
+     <nav>
+  <ul>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/login">LOGIN</a></li>
 
-     <table>
-        <tr>
-        <th>  Nome  </th>
-        <th>  Cpf  </th>
-        <th>  Email  </th>
-        <th>  Nivel   </th>
-      </tr>
-      {% for u in usuarios %}
-      
-      <tr>
-        <td>{{ u.nome }}</td>
-        <td>{{ u.cpf }}</td>
-        <td>{{u.email}}
-        <td>{{ u.nivel }}</td>
+        <li><a href="/usuarios">USUARIOS</a></li>
+        <li><a href="/salas">SALAS</a></li>
+    
+ 
+  </ul>
+  <div class="auth-buttons">
+    <a class="usu" onclick="abredropdown()">{{ conta.nome }}</a>
+    <div id="dropdown" class="dropdown">
+      <a href="/logout" >Sair</a>
+      </div>
+  </nav>
+  </div>
 
-        
-      </tr>
-     
-      {% endfor %}
-      </table>
+
+     <div class="table-container">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Ativo</th>
+                    <th>Nível de Acesso</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.nome }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.cpf }}</td>
+                    <td>{{ u.ativo }}</td>
+                    {%if u.nivel == '1'%}
+                    <td>Cliente</td>
+                    {%elif u.nivel == '2'%}
+                    <td>Funcionário</td>
+                    {%else%}
+                    <td>Administrador</td>
+                    {%endif%}
+                    <td><a href="/usuarios/{{ u.id }}/editar" class="edit-button">Editar</a></td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<button class="addusuario" onclick="window.location.href='/usuarios/novo'">+</button>
+
+
+<script>
+    function abredropdown() {
+        var dropdown = document.getElementById("dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+</script>
+
+
 </body>
 {% else %}
 <body>

@@ -1,0 +1,314 @@
+.table-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* Scroll interno */
+.table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+/* Cabeçalho */
+thead {
+    background: linear-gradient(to right, #6a75e6, #6a75e6);
+    color: white;
+}
+
+thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Corpo */
+tbody td {
+    padding: 14px 16px;
+    color: #555;
+}
+tbody td a.edit-button {
+    color: #6a75e6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+tbody td a.edit-button:hover {
+    color: #5562d6;
+}
+
+/* Zebra effect */
+tbody tr:nth-child(even) {
+    background-color: #f3f4f8;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/* Hover suave */
+tbody tr:hover {
+    background-color: #e9ecff;
+    transition: 0.2s ease;
+}
+nav {
+  
+  background-color: #f5f5f5; /* cinza claro */
+  padding: 0.7rem 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: inset 0 -1px 0 #dcdcdc; /* linha inferior suave */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #e0e0e0;
+}
+
+nav .auth-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+nav .auth-buttons a {
+  padding: 0.45rem 1rem;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+nav .auth-buttons .usu {
+  color: #333;
+  background: transparent;
+}
+
+nav .auth-buttons .usu:hover {
+  background-color: #e0e0e0;
+}
+
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 50px;    
+    right: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+.dropdown a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header igual da tabela */
+.form-header {
+    background: linear-gradient(to right, #6a75e6, #6a75e6);
+    color: white;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Corpo */
+.form-body {
+    padding: 25px;
+}
+
+/* Labels */
+.form-body label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Inputs e Select */
+.form-body input,
+.form-body select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.2s ease;
+    background: #f9f9fc;
+}
+
+.form-body input:focus,
+.form-body select:focus {
+    border-color: #6a75e6;
+    outline: none;
+    background: #ffffff;
+}
+
+/* Botão */
+.form-body button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #6a75e6;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.form-body button:hover {
+    background: #5562d6;
+}
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+   
+}
+
+.modal-content .confirm-delete-button {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 16px;
+}
+
+.modal-content .cancel-delete-button {
+    background: #ccc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.modal-content .confirm-delete-button:hover {
+    background: #d32f2f;
+}
+
+
+@keyframes flutuarBalancar {
+       0% {
+        transform: translateY(100px) ;
+    }
+       10% {
+        transform: translateY(90px) ;
+    }   20% {
+        transform: translateY(80px) ;
+    }   30% {
+        transform: translateY(70px) ;
+    }   40% {
+        transform: translateY(60px) ;
+    }   50% {
+        transform: translateY(50px) ;
+    }
+   60% {
+        transform: translateY(40px) ;
+    }
+    70% {
+        transform: translateY(30px) ;
+    }
+    80% {
+        transform: translateY(20px) ;
+    }
+    90% {
+        transform: translateY(10px) ;
+    }
+    100% {
+        transform: translateY(0px) ;
+    }
+}
+.addusuario{
+     animation: flutuarBalancar 0.5s ease-in-out ;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    height: 50px;
+    width: 50px;
+    color: #ddd;
+    background: linear-gradient(to right, #6a75e6, #6a75e6);
+    border: none;
+    border-radius: 16px;
+    font-size: 40px;
+    
+}
+.addusuario:hover{
+     background: #5562d6;
+}
+
