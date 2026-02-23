@@ -356,3 +356,62 @@ nav img {
     border-radius: 50%;
     object-fit: cover;
 }
+
+
+
+
+.anuncio {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    animation: anuncio 2s ease-in-out ;
+}
+.anuncio img {
+    width: 300px;
+    height: 300px;
+}
+.anuncio .xiszinho {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 5px 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+
+@keyframes anuncio {
+       0% {
+        transform: translateY(100px) ;
+    }
+       10% {
+        transform: translateY(90px) ;
+    }   20% {
+        transform: translateY(80px) ;
+    }   30% {
+        transform: translateY(70px) ;
+    }   40% {
+        transform: translateY(60px) ;
+    }   50% {
+        transform: translateY(50px) ;
+    }
+   60% {
+        transform: translateY(40px) ;
+    }
+    70% {
+        transform: translateY(30px) ;
+    }
+    80% {
+        transform: translateY(20px) ;
+    }
+    90% {
+        transform: translateY(10px) ;
+    }
+    100% {
+        transform: translateY(0px) ;
+    }
+}

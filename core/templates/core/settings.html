@@ -4,6 +4,8 @@
 {% block title %}Configurações{% endblock %}
 
 {% block content %}
+
+{% load static %}
 {% if conta %}
 <script>
     function abredropdown() {
@@ -16,6 +18,11 @@
 
 function fecharmodaldelete() {
     document.getElementById("modal-delete").classList.remove("active");
+}
+
+function fecharanuncio(){
+    var anuncio = document.getElementById("anuncio");
+    anuncio.style.display = "none";
 }
 </script>
 <div class="container text-center mt-5">
@@ -68,8 +75,13 @@ function fecharmodaldelete() {
         </form>
 
         </div>
-    </div>
 
+        
+    </div>
+    <div class="anuncio" id="anuncio">
+    <img src="{% static 'core/images/ratinho.png' %}" alt="ratinho" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">    
+    <button class="xiszinho" onclick="fecharanuncio()">X</button>
+        </div>
 
 </div>
 {% else %}
