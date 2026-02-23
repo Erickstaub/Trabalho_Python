@@ -78,7 +78,7 @@ def menu(request):
 
     return render(request, "core/menu.html", {'conta': usuario})
 
-def salasreservadas(request):
+def salas(request):
      reserva = Reserva.objects.all()
      return render(request, "core/salasreservas.html", {'reserva': reserva})
 
@@ -105,12 +105,23 @@ def salas(request):
     except Usuario.DoesNotExist:
         usuario = None
         return redirect('/')
-
-
-
-
+    
     salas = Sala.objects.all()
+
+
+
+
+
     return render(request, "core/salas.html", {'salas': salas, 'conta': usuario})
+
+def criar_sala(request):
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        capacidade = request.POST.get("capacidade")
+        Sala.objects.create(nome=nome, capacidade=capacidade)
+        return redirect('/salas')
+
+    return render(request, "core/criarS.html")
 
 
 
