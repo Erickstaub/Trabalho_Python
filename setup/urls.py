@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import criar_sala, editar_conta, editar_usuario, home, login, logout, novoU, menu, salas, usuarios, salas
+from core.views import criar_sala, editar_conta, editar_sala, editar_usuario, home, login, logout, novoU, menu, salas, usuarios, salas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +31,5 @@ urlpatterns = [
     path('usuarios/novo', novoU, name='novo-usuario'),
     path('usuarios/<int:conta_id>/settings', editar_conta, name='editar-conta'),
     path('salas/criar', criar_sala, name='criar-sala'),
+    path('salas/<int:sala_id>/editar', editar_sala, name='editar-sala'),
 ]

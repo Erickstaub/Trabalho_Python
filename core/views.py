@@ -182,3 +182,19 @@ def editar_conta(request, conta_id):
         return redirect('/menu')
 
     return render(request, "core/settings.html", {'conta': conta})
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Sala
+
+def editar_sala(request, id):
+    sala = get_object_or_404(Sala, id=id)
+
+    if request.method == "POST":
+        sala.numsala = request.POST.get("numsala")
+        sala.andar = request.POST.get("andar")
+        sala.recursos = request.POST.get("recursos")
+        sala.capacidade = request.POST.get("capacidade")
+        sala.save()
+
+        return redirect("salas") 
+
+    return render(request, "core/editar_sala.html", {"sala": sala}) 
