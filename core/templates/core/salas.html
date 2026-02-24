@@ -3,8 +3,47 @@
 {% block title %}Salas{% endblock %}
 
 {% block content %}
-<div class="container text-center mt-5">
-    <h1 class="mb-4 text-primary">SALAS</h1>
+{%if conta.nivel == 1 %}
+    <div class="container text-center mt-5">
+        <h1 class="mb-4 text-primary">SALAS REGISTRADAS</h1>
+        <a href="{% url 'core:cadastrar_sala' %}" class="btn btn-primary mb-3">Cadastrar Nova Sala</a>
+    </div>
+    {%else%}
 
-</div>
+    
+    {% if salas|length == 0 %}
+        <div class="container text-center mt-5">
+            <h1 class="mb-4 text-primary">NENHUMA SALA REGISTRADA</h1>
+            if salas|length == 0: 
+                <p>Nenhuma sala registrada.</p>    
+            
+        </div> 
+    {% else %}
+    <div class="container text-center mt-5">
+        <h1 class="mb-4 text-primary">SALAS REGISTRADAS</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Numero da Sala</th>
+                    <th>Andar</th>
+                    <th>Recursos</th>
+                    <th>Capacidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sala in salas %}
+                <tr>
+                    <td>{{ sala.numsala }}</td>
+                    <td>{{ sala.andar }}</td>
+                    <td>{{ sala.recursos }}</td>
+                    <td>{{ sala.capacidade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        
+    
+    </div>
+    {% endif %}
+{% endif %}
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block title %}Criar Sala{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Criar Nova Sala</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="Numsala">Numero da Sala:</label>
+        <input type="number" id="Numsala" name="numsala" required><br>
+
+        <label for="Andar">Andar:</label>
+        <input type="number" id="Andar" name="andar" required min="1"><br>
+
+        <label for="Recursos">Recursos:</label>
+       <select id="Recursos" name="recursos">
+    <option value="Projetor">Projetor</option>
+    <option value="Computador">Computador</option>
+    <option value="Laboratorio">Laboratorio</option>
+    <option value="Quadra">Quadra</option>
+    <option value="Piscina">Piscina</option>
+</select>
+
+        <label for="Capacidade">Capacidade:</label>
+        <input type="number" id="Capacidade" name="capacidade" required min="1"><br>
+
+        <button type="submit">Criar Sala</button>
+
+
+    </form>
+
+</div>
+{% endblock %}

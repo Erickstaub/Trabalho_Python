@@ -116,9 +116,11 @@ def salas(request):
 
 def criar_sala(request):
     if request.method == "POST":
-        nome = request.POST.get("nome")
+        numsala = request.POST.get("numsala")
         capacidade = request.POST.get("capacidade")
-        Sala.objects.create(nome=nome, capacidade=capacidade)
+        andar = request.POST.get("andar")
+        recursos = request.POST.get("recursos")
+        Sala.objects.create(numsala=numsala, capacidade=capacidade, andar=andar, recursos=recursos)
         return redirect('/salas')
 
     return render(request, "core/criarS.html")
