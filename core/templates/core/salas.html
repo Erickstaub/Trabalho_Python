@@ -3,57 +3,29 @@
 {% block title %}Salas{% endblock %}
 
 {% block content %}
-{%if conta.nivel == 1 %}
-    <div class="container text-center mt-5">
-        <h1 class="mb-4 text-primary">SALAS REGISTRADAS</h1>
-        <a href="{% url 'core:cadastrar_sala' %}" class="btn btn-primary mb-3">Cadastrar Nova Sala</a>
-    </div>
-    {%else%}
+{%if conta.nivel %}
+ 
+   
 
     
     {% if salas|length == 0 %}
         <div class="container text-center mt-5">
             <h1 class="mb-4 text-primary">NENHUMA SALA REGISTRADA</h1>
-            if salas|length == 0: 
-                <p>Nenhuma sala registrada.</p>    
-            
+           
+                <a href="/salas/criar" class="btn btn-primary mb-3">+</a>
         </div> 
     {% else %}
     <div class="container text-center mt-5">
-        <h1 class="mb-4 text-primary">SALAS REGISTRADAS</h1>
+      
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Numero da Sala</th>
-                    <th>Andar</th>
                     <th>Recursos</th>
                     <th>Capacidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sala in salas %}
-                <tr>
-                    <td>{{ sala.numsala }}</td>
-                    <td>{{ sala.andar }}</td>
-                    <td>{{ sala.recursos }}</td>
-                    <td>{{ sala.capacidade }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-    
-        
-    
-    </div>
-    {% if conta.nivel == 3 %}
-    <div class="container text-center mt-5">
-        <h1 class="mb-4 text-primary">EDITAR SALA</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Numero da Sala</th>
-                    <th>Andar</th>
-                    <th>Recursos</th>
-                    <th>Capacidade</th>
+                    <th>Disponibilidade</th>
+                    <th>Preço</th>
+                    <th>Dia Não Disponível</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -61,15 +33,38 @@
                 {% for sala in salas %}
                 <tr>
                     <td>{{ sala.numsala }}</td>
-                    <td>{{ sala.andar }}</td>
-                    <td>{{ sala.recursos }}</td>
+                    <td>
+
+                        {% for recurso in sala.recursos.all %}
+                        {{ recurso.nome }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    </td>   
                     <td>{{ sala.capacidade }}</td>
-                    <td><a href="{% url 'core:editar_sala' sala.id %}" class="btn btn-secondary">Editar</a></td>
+                    {% if sala.disponivel %}
+                        <td>Sim</td>
+                    {% else %}
+                        <td>Não</td>
+                    {% endif %}
+                    <td>{{ sala.preco }}</td>
+                    <td>{{ sala.dia_nao_disponivel }}</td>
+                    {% if conta.nivel > "1" %}
+                    <td><a href="/salas/{{ sala.id }}/editar" class="edit-button">Editar</a>
+
+                    <a href="/salas/{{ sala.id }}/reservar" class="edit-button" >Resevar</a>
+                        </td>
+                    {% else %}
+                    <td><a href="/salas/{{ sala.id }}/reservar" class="edit-button" >Resevar</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
+    
+        <button class="addsala" onclick="window.location.href='/salas/criar'">+</button>
+        
+    
     </div>
+   
 {% endif %}
 {% endif %}
 {% endblock %}

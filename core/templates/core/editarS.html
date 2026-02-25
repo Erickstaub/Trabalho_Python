@@ -5,26 +5,23 @@
     <h1>Editar Sala</h1>
     <form method="POST">
         {% csrf_token %}
-        <label for="Numsala">Numero da Sala:</label>
-        <input type="number" id="Numsala" name="numsala" value="{{ sala.numsala }}" required><br>
-
-        <label for="Andar">Andar:</label>
-        <input type="number" id="Andar" name="andar" value="{{ sala.andar }}" required min="1"><br>
-
-        <label for="Recursos">Recursos:</label>
-       <select id="Recursos" name="recursos">
-    <option value="Projetor" {% if sala.recursos == "Projetor" %}selected{% endif %}>Projetor</option>
-    <option value="Computador" {% if sala.recursos == "Computador" %}selected{% endif %}>Computador</option>
-    <option value="Laboratorio" {% if sala.recursos == "Laboratorio" %}selected{% endif %}>Laboratorio</option>
-    <option value="Quadra" {% if sala.recursos == "Quadra" %}selected{% endif %}>Quadra</option>
-    <option value="Piscina" {% if sala.recursos == "Piscina" %}selected{% endif %}>Piscina</option>
-</select>
-
-        <label for="Capacidade">Capacidade:</label>
-        <input type="number" id="Capacidade" name="capacidade" value="{{ sala.capacidade }}" required min="1"><br>
-
-        <button type="submit">Salvar Alterações</button>
-
+        <label for="numsala">Número da Sala:</label>
+        <input type="text" id="numsala" name="numsala" value="{{ sala.numsala }}" required><br><br>
+        <label for="capacidade">Capacidade:</label>
+        <input type="number" id="capacidade" name="capacidade" value="{{ sala.capacidade }}" required><br><br>
+        <label for="dia_nao_disponivel">Dia Não Disponível:</label>
+        <input type="date" id="dia_nao_disponivel" name="dia_nao_disponivel" value="{{ sala.dia_nao_disponivel|date:'Y-m-d' }}"><br><br>
+        <label for="disponivel">Disponível:</label>
+        <input type="checkbox" id="disponivel" name="disponivel" {% if sala.disponivel %}checked{% endif %}><br><br>
+        <label for="recursos">Recursos:</label><br>
+        <select id="recursos" name="recursos" multiple size="1">
+            {% for recurso in recursos %}
+                <option value="{{ recurso.id }}" {% if recurso in sala.recursos.all %}selected{% endif %}>{{ recurso.nome }}</option>
+            {% endfor %}
+ 
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" value="{{ sala.preco }}" required><br><br>
+        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
     </form>
     </div>
 {% endblock %}

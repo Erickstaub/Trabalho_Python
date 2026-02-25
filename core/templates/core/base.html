@@ -21,17 +21,19 @@
     <li><a href="/login">LOGIN</a></li>
 
         {%if conta.nivel == '1'%}
-     <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
-        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
+     <li><a href="/salas">SALAS </a></li>
+        <li><a href="/reservas/myself"> SUAS RESERVAS </a></li>
 
         {%elif conta.nivel == '2'%}
-        <li><a href="/salareservadas">SALAS RESERVADAS</a></li>
-        <li><a href="/reservarsala">RESERVAR SALAS</a></li>
-        <li><a href="/novasala">NOVA SALA</a></li>
+        <li><a href="/salas">SALAS </a></li>
+        <li><a href="/reservas">RESERVAS</a></li>
+        
         
         {%elif conta.nivel == '3'%}
         <li><a href="/usuarios">USUARIOS</a></li>
         <li><a href="/salas">SALAS</a></li>
+        <li><a href="/reservas">RESERVAS</a></li>
+
         {%endif%}
  
   </ul>

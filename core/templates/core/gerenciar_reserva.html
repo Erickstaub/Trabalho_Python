@@ -1,0 +1,55 @@
+{%extends "core/base.html"%}
+{%block title%}Gerenciar Reserva{%endblock%}
+{%block content%}
+{%if conta.nivel > "1"%}
+<div class="container text-center mt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Gerenciar Reserva</h1>
+        <p>Sala: {{ reserva.sala.numsala }}</p>
+        <p>Usuário: {{ reserva.usuario.nome }}</p>
+        <p>Data da Reserva: {{ reserva.data_reserva }}</p>
+        <p>Hora de Início: {{ reserva.hora_inicio }}</p>
+        <p>Hora de Fim: {{ reserva.hora_fim }}</p>
+        <p>Multas: {% if reserva.multa %}{{ reserva.multa }}{% else %}0{% endif %}</p>
+        <p>Preço: R$ {{ reserva.sala.preco }}</p>
+        
+        {% if conta.nivel > "1" %}
+            <button type="button" id="cancelar" onclick="    document.getElementById('modal-cancelar').style.display = 'block';" class="btn btn-danger mt-3">Cancelar Reserva</button>
+            <button type="button" id="multar" onclick="    document.getElementById('modal-multa').style.display = 'block';" class="btn btn-warning mt-3">Aplicar Multa</button>
+        {% endif %}
+        <div id="modal-cancelar" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('modal-cancelar').style.display='none'">&times;</span>
+                <h2>Confirmar Cancelamento</h2>
+                <p>Tem certeza que deseja cancelar esta reserva?</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="acao" value="cancelar">
+                    <button type="submit" class="btn btn-danger mt-3">Sim, Cancelar</button>
+                    <button type="button" class="btn btn-secondary mt-3" onclick="document.getElementById('modal-cancelar').style.display='none'">Não, Voltar</button>
+                </form>
+            </div>
+        <div id="modal-multa" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('modal-multa').style.display='none'">&times;</span>
+                <h2>Aplicar Multa</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="acao" value="multinha">
+                    <label for="valor_multa">Valor da Multa:</label>
+                    <input type="number" id="valor_multa" name="valor" required><br><br>
+                    {% if error %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endif %}
+                    <button type="submit" class="btn btn-danger mt-3">Aplicar</button>
+                </form>
+            </div>
+    </form>
+
+
+</div>
+{%else%}
+    <p class="mt-4">Acesso negado.</p>
+{% endif %}
+{%endblock%}

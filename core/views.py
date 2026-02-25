@@ -1,7 +1,9 @@
+import decimal
+
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 
-from .models import Sala,Usuario,Reserva
+from .models import Sala,Usuario,Reserva,Recurso
 
 
 # Create your views here.
@@ -47,8 +49,8 @@ def novoU(request):
         nick = request.POST.get("nome")
         cpf = request.POST.get("cpf")
         email =request.POST.get("email")
-
         Usuario.objects.create(nome=nick,cpf=cpf,email=email,ativo=True,nivel=1)
+        return redirect('/login')
 
 
     if request.method == "POST" and request.POST.get("novoadmin") == "true":
@@ -106,6 +108,8 @@ def salas(request):
         usuario = None
         return redirect('/')
     
+
+    
     salas = Sala.objects.all()
 
 
@@ -115,15 +119,33 @@ def salas(request):
     return render(request, "core/salas.html", {'salas': salas, 'conta': usuario})
 
 def criar_sala(request):
+    try:
+        usuario_id = request.session.get('usuario_id')
+        usuario = Usuario.objects.get(id=usuario_id)
+
+    except Usuario.DoesNotExist:
+        usuario = None
+        return redirect('/')
+    sala = Sala.objects.all()
+    recursos = Recurso.objects.all()
     if request.method == "POST":
         numsala = request.POST.get("numsala")
         capacidade = request.POST.get("capacidade")
-        andar = request.POST.get("andar")
-        recursos = request.POST.get("recursos")
-        Sala.objects.create(numsala=numsala, capacidade=capacidade, andar=andar, recursos=recursos)
+        preco = request.POST.get("preco")
+        disponivel = request.POST.get("disponivel") == "on"
+        dia_nao_disponivel = request.POST.get("dia_nao_disponivel")
+        recu = request.POST.getlist("recursos")
+        sala = Sala.objects.create(numsala=numsala,capacidade=capacidade,preco=preco,disponivel=True,dia_nao_disponivel=dia_nao_disponivel)
+        for recurso_id in recu:
+            recurso = Recurso.objects.get(id=recurso_id)
+            sala.recursos.add(recurso)
+
+        
+
+
         return redirect('/salas')
 
-    return render(request, "core/criarS.html")
+    return render(request, "core/criarS.html", {'conta': usuario, 'salas': sala , 'recursos': recursos})
 
 
 
@@ -185,16 +207,97 @@ def editar_conta(request, conta_id):
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Sala
 
-def editar_sala(request, id):
-    sala = get_object_or_404(Sala, id=id)
+def editar_sala(request, sala_id):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
 
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    sala = get_object_or_404(Sala, id=sala_id)
+
+    recursoss = Recurso.objects.all()
     if request.method == "POST":
         sala.numsala = request.POST.get("numsala")
-        sala.andar = request.POST.get("andar")
-        sala.recursos = request.POST.get("recursos")
         sala.capacidade = request.POST.get("capacidade")
+        sala.preco = request.POST.get("preco")
+        sala.dia_nao_disponivel = request.POST.get("dia_nao_disponivel")
+        sala.disponivel = request.POST.get("disponivel") == "on"
+        recu = request.POST.getlist("recursos")
+        sala.recursos.set(recu)
         sala.save()
-
         return redirect("salas") 
 
-    return render(request, "core/editar_sala.html", {"sala": sala}) 
+    return render(request, "core/editarS.html", {"sala": sala , "recursos": recursoss , 'conta': conta}) 
+
+def reservar_sala(request, sala_id):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    sala = get_object_or_404(Sala, id=sala_id)
+
+    if request.method == "POST":
+        data_reserva = request.POST.get("data_reserva")
+        hora_inicio = request.POST.get("hora_inicio")
+        hora_fim = request.POST.get("hora_fim")
+        preco = sala.preco
+        multas = 0.00
+
+        if hora_inicio >= hora_fim:
+            return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A hora de início deve ser anterior à hora de término.'})
+        if data_reserva == str(sala.dia_nao_disponivel):
+            return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A sala não está disponível para a data selecionada.'})
+        
+        reserva = Reserva.objects.create(sala=sala, usuario=conta, data_reserva=data_reserva, hora_inicio=hora_inicio, hora_fim=hora_fim, preco_total=preco, multa=multas)
+        return redirect("salas") 
+
+    return render(request, "core/reservar.html", {"sala": sala , 'conta': conta})
+
+def reservas(request):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    reservas = Reserva.objects.filter(usuario=conta)
+
+    return render(request, "core/reservas.html", {'reservas': reservas, 'conta': conta})
+
+
+def gerenciar_reserva(request, reserva_id):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    if request.method == "POST" and request.POST.get("acao") == "multinha":
+        valor = request.POST.get("valor")
+        if valor:
+            reserva.multa += decimal.Decimal(valor)
+            reserva.preco_total += decimal.Decimal(valor)
+            reserva.save()
+            return redirect("reservas")
+        else:
+            return render(request, "core/gerenciar_reserva.html", {"reserva": reserva, 'conta': conta, 'error': 'Valor da multa é obrigatório.'})
+    
+    if request.method == "POST" and request.POST.get("acao") == "cancelar":
+        
+        
+        return redirect("reservas")
+
+    return render(request, "core/gerenciar_reserva.html", {"reserva": reserva, 'conta': conta})

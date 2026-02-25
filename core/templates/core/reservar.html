@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% load static %} 
+{% block title %}Reservar Sala{% endblock %} 
+ 
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Reservar Sala {{ sala.numsala }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+       
+        
+        <label for="data_reserva">Data da Reserva:</label>
+        <input type="date" id="data_reserva" name="data_reserva" required><br><br>
+        <label for="hora_inicio">Hora de Início:</label>
+        <input type="time" id="hora_inicio" name="hora_inicio" required><br><br>
+        <label for="hora_fim">Hora de Fim:</label>
+        <input type="time" id="hora_fim" name="hora_fim" required><br><br>
+        
+        <label >Preco: R$ {{ sala.preco }}</label><br>
+        {% if error %}
+            <p class="text-danger">{{ error }}</p>
+        {% endif %}
+        <button type="submit" class="btn btn-primary mt-3">Reservar</button>
+    </form>
+</div>
+{% endblock %}
