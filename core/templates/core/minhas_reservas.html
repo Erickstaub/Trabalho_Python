@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Minhas Reservas{% endblock %}
+
+{% block content %}
+   
+    {% if conta.nivel %}
+<div class="container text-center mt-5">
+    <h2>Minhas Reservas</h2>
+    {% if reservas %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Sala</th>
+                    <th>Data</th>
+                    <th>Hora Início</th>
+                    <th>Hora Fim</th>
+                    <th>Multa</th>
+                    <th>Preco Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.sala.numsala }}</td>
+                        <td>{{ reserva.data_reserva }}</td>
+                        <td>{{ reserva.hora_inicio }}</td>
+                        <td>{{ reserva.hora_fim }}</td>
+                        <td>{{ reserva.multa }}</td>
+                        <td>{{ reserva.preco_total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma reserva encontrada.</p>
+    {% endif %}
+    {% else %}
+    <p>Faça login para ver suas reservas.</p>
+    {% endif %}
+    </div>
+{% endblock %}

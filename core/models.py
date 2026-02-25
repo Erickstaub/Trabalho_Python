@@ -13,7 +13,7 @@ class Sala(models.Model):
         capacidade = models.IntegerField()
         recursos = models.ManyToManyField(Recurso, blank=True)
         disponivel = models.BooleanField(default=True)
-        dia_nao_disponivel = models.DateField(blank=True, null=True)
+        
         preco = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
         def __str__(self):

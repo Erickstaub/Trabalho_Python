@@ -1,3 +1,4 @@
+from datetime import date
 import decimal
 
 from django.shortcuts import render
@@ -223,7 +224,7 @@ def editar_sala(request, sala_id):
         sala.numsala = request.POST.get("numsala")
         sala.capacidade = request.POST.get("capacidade")
         sala.preco = request.POST.get("preco")
-        sala.dia_nao_disponivel = request.POST.get("dia_nao_disponivel")
+   
         sala.disponivel = request.POST.get("disponivel") == "on"
         recu = request.POST.getlist("recursos")
         sala.recursos.set(recu)
@@ -252,9 +253,11 @@ def reservar_sala(request, sala_id):
 
         if hora_inicio >= hora_fim:
             return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A hora de início deve ser anterior à hora de término.'})
-        if data_reserva == str(sala.dia_nao_disponivel):
-            return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A sala não está disponível para a data selecionada.'})
-        
+      
+        if data_reserva < str(date.today()):
+            return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A data de reserva deve ser igual ou posterior à data atual.'})
+        if not sala.disponivel:
+            return render(request, "core/reservar.html", {"sala": sala , 'conta': conta, 'error': 'A sala não está disponível para reserva.'})
         reserva = Reserva.objects.create(sala=sala, usuario=conta, data_reserva=data_reserva, hora_inicio=hora_inicio, hora_fim=hora_fim, preco_total=preco, multa=multas)
         return redirect("salas") 
 
@@ -301,3 +304,18 @@ def gerenciar_reserva(request, reserva_id):
         return redirect("reservas")
 
     return render(request, "core/gerenciar_reserva.html", {"reserva": reserva, 'conta': conta})
+
+
+
+def minhas_reservas(request):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    reservas = Reserva.objects.filter(usuario=conta)
+
+    return render(request, "core/minhas_reservas.html", {'reservas': reservas, 'conta': conta})

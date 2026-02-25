@@ -11,8 +11,9 @@
     {% if salas|length == 0 %}
         <div class="container text-center mt-5">
             <h1 class="mb-4 text-primary">NENHUMA SALA REGISTRADA</h1>
-           
+                {% if conta.nivel > "1" %}
                 <a href="/salas/criar" class="btn btn-primary mb-3">+</a>
+                {% endif %}
         </div> 
     {% else %}
     <div class="container text-center mt-5">
@@ -25,7 +26,7 @@
                     <th>Capacidade</th>
                     <th>Disponibilidade</th>
                     <th>Preço</th>
-                    <th>Dia Não Disponível</th>
+                   
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -47,7 +48,7 @@
                         <td>Não</td>
                     {% endif %}
                     <td>{{ sala.preco }}</td>
-                    <td>{{ sala.dia_nao_disponivel }}</td>
+                   
                     {% if conta.nivel > "1" %}
                     <td><a href="/salas/{{ sala.id }}/editar" class="edit-button">Editar</a>
 
@@ -59,9 +60,11 @@
                 </tr>
                 {% endfor %}
             </tbody>
-    
+        </table>
+        {% if conta.nivel > "1" %}
+
         <button class="addsala" onclick="window.location.href='/salas/criar'">+</button>
-        
+        {% endif %}
     
     </div>
    
