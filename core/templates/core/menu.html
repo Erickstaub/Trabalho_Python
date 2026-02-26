@@ -1,37 +1,34 @@
 {% extends 'core/base.html' %}
-
+{% load static %}
 
 {% block title %}Menu{% endblock %}
 
 {% block content %}
 
-
 {% if conta %}
+
+<link rel="stylesheet" href="{% static 'core/menu.css' %}">
+
 <div class="container text-center mt-5">
-    
-    
-        {%if conta.nivel == '1'%}
+
+    {% if conta.nivel == '1' %}
         <button>Salas Reservadas</button>
         <button>Reservar Salas</button>
 
-        {%elif conta.nivel == '2'%}
-       
+    {% elif conta.nivel == '2' %}
         <button>Nova Sala</button>
         <button>Salas Reservadas</button>
         <button>Reservar Salas</button>
-        {%elif conta.nivel == '3'%}
+
+    {% elif conta.nivel == '3' %}
         <div class="admin-button">
-        <button onclick="window.location.href='/usuarios'">Usuarios</button>
-        <button onclick="window.location.href='/salas'">Salas</button>
+            <button onclick="window.location.href='/usuarios'">Usuarios</button>
+            <button onclick="window.location.href='/salas'">Salas</button>
         </div>
-        {%endif%}
-
-        
-        
-        
-
+    {% endif %}
 
 </div>
+
 {% else %}
     <p>Usuário não autenticado.</p>
 {% endif %}
