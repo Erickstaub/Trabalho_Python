@@ -1,0 +1,40 @@
+{%extends "core/base.html"%}
+{% block title %}Recursos{% endblock %}
+
+{% block content %}
+{% if conta.nivel > "1" %}
+<div class="container text-center mt-5">
+    <h1>Recursos Disponíveis</h1>
+    {% if recursos %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID do Recurso</th>
+                    <th>Nome do Recurso</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recurso in recursos %}
+                <tr>
+                    <td>{{ recurso.id }}</td>
+                    <td>{{ recurso.nome }}</td>
+                    <td>
+                        <a href="/recursos/{{ recurso.id }}/deletar" class="btn btn-danger btn-sm">Deletar</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/recursos/criar" class="btn btn-primary">Criar Novo Recurso</a>
+    {% else %}
+        <p>Nenhum recurso encontrado.</p>
+    {% endif %}
+</div>
+{% else %}
+<div class="container text-center mt-5">
+    <h1>Faça login para ver os recursos disponíveis.</h1>
+</div>
+{% endif %}
+{% endblock %}

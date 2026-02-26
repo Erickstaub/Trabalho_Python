@@ -12,6 +12,7 @@
 
     <!-- Seu CSS -->
     <link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
+  {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-light">
       {% if conta %}
@@ -31,6 +32,7 @@
         <li><a href="/salas">SALAS </a></li>
         <li><a href="/reservas">RESERVAS</a></li>
         <li><a href="/reservas/myself"> SUAS RESERVAS </a></li>
+        <li><a href="/recursos">RECURSOS</a></li>
 
         
         
@@ -41,6 +43,8 @@
         <li><a href="/salas">SALAS</a></li>
         <li><a href="/reservas">RESERVAS</a></li>
         <li><a href="/reservas/myself"> SUAS RESERVAS </a></li>
+        <li><a href="/recursos">RECURSOS</a></li>
+
        
 
 

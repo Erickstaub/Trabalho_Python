@@ -80,12 +80,66 @@ tbody tr:hover {
     transform: scale(1.05);
 }
 
+<<<<<<< HEAD
 /* ===== BOTÃO + NOVO USUÁRIO ===== */
 .addusuario {
     font-size: 24px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+=======
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+   
+}
+
+.modal-content .confirm-delete-button {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 16px;
+}
+
+.modal-content .cancel-delete-button {
+    background: #ccc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.modal-content .confirm-delete-button:hover {
+    background: #d32f2f;
+}
+
+
+
+.addusuario{
+
+>>>>>>> cb5e48eda3561ec9d414605955071f9bbf53f81b
     position: fixed;
     bottom: 40px;
     right: 40px;
@@ -104,8 +158,51 @@ tbody tr:hover {
     color: #ffffff;
 }
 
+<<<<<<< HEAD
 /* ===== ANIMAÇÃO ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+=======
+.foto-perfil {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+
+.anuncio {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+  
+}
+.anuncio img {
+    width: 300px;
+    height: 300px;
+}
+.anuncio .xiszinho {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 5px 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+
+>>>>>>> cb5e48eda3561ec9d414605955071f9bbf53f81b
