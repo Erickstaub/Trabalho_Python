@@ -2,7 +2,7 @@
 {% block title %}Recursos{% endblock %}
 
 {% block content %}
-{% if conta.nivel %}
+{% if conta.nivel > "1" %}
 <div class="container text-center mt-5">
     <h1>Recursos Disponíveis</h1>
     {% if recursos %}
@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID do Recurso</th>
                     <th>Nome do Recurso</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,10 +19,15 @@
                 <tr>
                     <td>{{ recurso.id }}</td>
                     <td>{{ recurso.nome }}</td>
+                    <td>
+                        <a href="/recursos/{{ recurso.id }}/deletar" class="btn btn-danger btn-sm">Deletar</a>
+
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a href="/recursos/criar" class="btn btn-primary">Criar Novo Recurso</a>
     {% else %}
         <p>Nenhum recurso encontrado.</p>
     {% endif %}
