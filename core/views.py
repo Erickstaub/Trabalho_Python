@@ -319,3 +319,48 @@ def minhas_reservas(request):
     reservas = Reserva.objects.filter(usuario=conta)
 
     return render(request, "core/minhas_reservas.html", {'reservas': reservas, 'conta': conta})
+
+def recursos(request):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    recursos = Recurso.objects.all()
+
+    return render(request, "core/recursos.html", {'recursos': recursos, 'conta': conta})
+
+
+def criar_recurso(request):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        Recurso.objects.create(nome=nome)
+        return redirect('/recursos')
+
+    return render(request, "core/criar_recurso.html", {'conta': conta})    
+
+
+
+def deletar_recurso(request, recurso_id):
+    try:
+        conta_id = request.session.get('usuario_id')
+        conta = Usuario.objects.get(id=conta_id)
+
+    except Usuario.DoesNotExist:
+        conta = None
+        return redirect('/')
+
+    recurso = get_object_or_404(Recurso, id=recurso_id)
+    recurso.delete()
+    return redirect('/recursos')

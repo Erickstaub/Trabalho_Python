@@ -270,39 +270,9 @@ nav .auth-buttons .usu:hover {
 }
 
 
-@keyframes flutuarBalancar {
-       0% {
-        transform: translateY(100px) ;
-    }
-       10% {
-        transform: translateY(90px) ;
-    }   20% {
-        transform: translateY(80px) ;
-    }   30% {
-        transform: translateY(70px) ;
-    }   40% {
-        transform: translateY(60px) ;
-    }   50% {
-        transform: translateY(50px) ;
-    }
-   60% {
-        transform: translateY(40px) ;
-    }
-    70% {
-        transform: translateY(30px) ;
-    }
-    80% {
-        transform: translateY(20px) ;
-    }
-    90% {
-        transform: translateY(10px) ;
-    }
-    100% {
-        transform: translateY(0px) ;
-    }
-}
+
 .addusuario{
-     animation: flutuarBalancar 0.5s ease-in-out ;
+
     position: fixed;
     bottom: 40px;
     right: 40px;
@@ -364,7 +334,7 @@ nav img {
     position: fixed;
     bottom: 40px;
     left: 40px;
-    animation: anuncio 2s ease-in-out ;
+  
 }
 .anuncio img {
     width: 300px;
@@ -384,34 +354,3 @@ nav img {
 }
 
 
-@keyframes anuncio {
-       0% {
-        transform: translateY(100px) ;
-    }
-       10% {
-        transform: translateY(90px) ;
-    }   20% {
-        transform: translateY(80px) ;
-    }   30% {
-        transform: translateY(70px) ;
-    }   40% {
-        transform: translateY(60px) ;
-    }   50% {
-        transform: translateY(50px) ;
-    }
-   60% {
-        transform: translateY(40px) ;
-    }
-    70% {
-        transform: translateY(30px) ;
-    }
-    80% {
-        transform: translateY(20px) ;
-    }
-    90% {
-        transform: translateY(10px) ;
-    }
-    100% {
-        transform: translateY(0px) ;
-    }
-}

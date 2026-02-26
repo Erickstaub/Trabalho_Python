@@ -1,0 +1,15 @@
+{%extends "core/base.html"%}
+{% block title %}Criar Recursos{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Criar Novo Recurso</h1>
+    <form method="POST" >
+        {% csrf_token %}
+        <label for="nome">Nome do Recurso:</label>
+        <input type="text" id="nome" name="nome" required><br>
+
+        <button type="submit">Criar Recurso</button>
+    </form>
+    </div>
+{% endblock %}
