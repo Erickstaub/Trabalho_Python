@@ -5,16 +5,16 @@ body {
     padding: 0;
 
     background-image: url("/static/core/img/fundo.jpg");
-    background-size: cover;          /* Faz ocupar a tela inteira */
-    background-position: center;     /* Centraliza */
-    background-repeat: no-repeat;    /* Não repete */
-    background-attachment: fixed;    /* Efeito parallax */
+    background-size: cover;          
+    background-position: center;     
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
 
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #ffffff;
 }
 
-/* Container central */
+
 .container {
     margin-top: 100px;
     padding: 50px;
@@ -27,7 +27,7 @@ body {
     max-width: 800px;
 }
 
-/* ===== BOTÕES ===== */
+
 
 button {
     background-color: #4ad6e0;
@@ -42,14 +42,14 @@ button {
     transition: all 0.3s ease;
 }
 
-/* Hover estilo Netflix */
+
 button:hover {
     background-color: #4197ac;
     transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(57, 145, 218, 0.6);
 }
 
-/* Botão secundário (opcional) */
+
 button:nth-child(2),
 button:nth-child(3) {
     background-color: #333333;
@@ -60,7 +60,7 @@ button:nth-child(3):hover {
     background-color: #444444;
 }
 
-/* Área admin */
+
 .admin-button {
     display: flex;
     justify-content: center;
@@ -68,7 +68,7 @@ button:nth-child(3):hover {
     flex-wrap: wrap;
 }
 
-/* Texto quando não autenticado */
+
 p {
     text-align: center;
     margin-top: 100px;
@@ -76,7 +76,6 @@ p {
     color: #30b0be;
 }
 
-/* Efeito fade-in */
 .container {
     animation: fadeIn 0.8s ease-in-out;
 }

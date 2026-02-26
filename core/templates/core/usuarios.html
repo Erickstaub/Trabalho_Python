@@ -1,57 +1,51 @@
-
 {% extends 'core/base.html' %}
+{% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
+{% endblock %}
 
-{% block title %}Usuarios{% endblock %}
+{% block title %}Usuários{% endblock %}
 
 {% block content %}
 
 {% if conta.nivel == '3' %}
 <div class="container text-center mt-5">
-
-
-
-
-     <div class="table-container">
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>CPF</th>
-                    <th>Ativo</th>
-                    <th>Nível de Acesso</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-              {% for u in usuarios %}
-                <tr>
-                    <td>{{ u.nome }}</td>
-                    <td>{{ u.email }}</td>
-                    <td>{{ u.cpf }}</td>
-                    <td>{{ u.ativo }}</td>
-                    {%if u.nivel == '1'%}
-                    <td>Cliente</td>
-                    {%elif u.nivel == '2'%}
-                    <td>Funcionário</td>
-                    {%else%}
-                    <td>Administrador</td>
-                    {%endif%}
-                    <td><a href="/usuarios/{{ u.id }}/editar" class="edit-button">Editar</a></td>
-                  </tr>
-              {% endfor %}
-            </tbody>
-        </table>
+    <div class="table-container">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>CPF</th>
+                        <th>Ativo</th>
+                        <th>Nível de Acesso</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr>
+                        <td>{{ u.nome }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.cpf }}</td>
+                        <td>{{ u.ativo }}</td>
+                        {% if u.nivel == '1' %}
+                        <td>Cliente</td>
+                        {% elif u.nivel == '2' %}
+                        <td>Funcionário</td>
+                        {% else %}
+                        <td>Administrador</td>
+                        {% endif %}
+                        <td><a href="/usuarios/{{ u.id }}/editar" class="edit-button">Editar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<button class="addusuario" onclick="window.location.href='/usuarios/novo'">+</button>
-
-
-
-
-
+    <button class="addusuario" onclick="window.location.href='/usuarios/novo'">+</button>
 </div>
 {% else %}
 <div class="container text-center mt-5">
