@@ -1,31 +1,55 @@
+{% extends 'core/base.html' %}
 
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'core/login.css' %}">
-
-<<<<<<< HEAD
-<div class="login-container">
-=======
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container text-center mt-5">
->>>>>>> cb5e48eda3561ec9d414605955071f9bbf53f81b
-    <h1>LOGIN</h1>
-    <form method="POST">
-    {% csrf_token %}
-    <div class="mb-3">
-        <input type="text" id="nome" name="nome" placeholder="Nome" required minlength="3">
-    </div>
-    <div class="mb-3">
-        <input type="text" id="cpf" name="cpf" placeholder="Cpf" required >
-    </div>
-    <div class="mb-3">
-         {% if error %}
-            <p style="color: red;">{{ error }}</p>
-        {% endif %}
-    </div>  
-        <button type="submit" class="btn btn-primary">ENTRAR</button>
-    </form>
-    <a href="{% url 'novo-usuario' %}">Criar conta</a></td>
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">LOGIN</h4>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Nome</label>
+                            <input type="text" class="form-control" name="nome" required minlength="3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">CPF</label>
+                            <input type="text" class="form-control" name="cpf" required>
+                        </div>
+
+                        {% if error %}
+                            <div class="alert alert-danger py-2">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                ENTRAR
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{% url 'novo-usuario' %}">
+                            Criar conta
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+{% endblock %}

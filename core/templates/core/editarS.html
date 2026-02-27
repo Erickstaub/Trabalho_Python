@@ -1,28 +1,77 @@
 {% extends 'core/base.html' %}
-{% block title %}Criar Sala{% endblock %}
+{% block title %}Editar Sala{% endblock %}
+
 {% block content %}
-<div class="container text-center mt-5">
-    <h1>Editar Sala</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="numsala">Número da Sala:</label>
-        <input type="text" id="numsala" name="numsala" value="{{ sala.numsala }}" required><br><br>
-        <label for="capacidade">Capacidade:</label>
-        <input type="number" id="capacidade" name="capacidade" value="{{ sala.capacidade }}" required><br><br>
-        <label for="dia_nao_disponivel">Dia Não Disponível:</label>
-        <input type="date" id="dia_nao_disponivel" name="dia_nao_disponivel" value="{{ sala.dia_nao_disponivel|date:'Y-m-d' }}"><br><br>
-        <label for="disponivel">Disponível:</label>
-        <input type="checkbox" id="disponivel" name="disponivel" {% if sala.disponivel %}checked{% endif %}><br><br>
-        <label for="recursos">Recursos:</label><br>
-        <select id="recursos" name="recursos" multiple size="1">
-            {% for recurso in recursos %}
-                <option value="{{ recurso.id }}" {% if recurso in sala.recursos.all %}selected{% endif %}>{{ recurso.nome }}</option>
-            {% endfor %}
- 
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" value="{{ sala.preco }}" required><br><br>
-        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-    </form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white">
+                    <h4 class="mb-0">Editar Sala</h4>
+                </div>
+
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="numsala" class="form-label">Número da Sala</label>
+                            <input type="text" class="form-control" id="numsala" name="numsala"
+                                   value="{{ sala.numsala }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="capacidade" class="form-label">Capacidade</label>
+                            <input type="number" class="form-control" id="capacidade" name="capacidade"
+                                   value="{{ sala.capacidade }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dia_nao_disponivel" class="form-label">Dia Não Disponível</label>
+                            <input type="date" class="form-control" id="dia_nao_disponivel"
+                                   name="dia_nao_disponivel"
+                                   value="{{ sala.dia_nao_disponivel|date:'Y-m-d' }}">
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input"
+                                   id="disponivel" name="disponivel"
+                                   {% if sala.disponivel %}checked{% endif %}>
+                            <label class="form-check-label" for="disponivel">
+                                Disponível
+                            </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="recursos" class="form-label">Recursos</label>
+                            <select class="form-select" id="recursos" name="recursos" multiple>
+                                {% for recurso in recursos %}
+                                    <option value="{{ recurso.id }}"
+                                        {% if recurso in sala.recursos.all %}selected{% endif %}>
+                                        {{ recurso.nome }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="preco" class="form-label">Preço</label>
+                            <input type="number" class="form-control" id="preco"
+                                   name="preco" value="{{ sala.preco }}" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Salvar Alterações
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
+</div>
 {% endblock %}
-    

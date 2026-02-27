@@ -15,6 +15,7 @@
   {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-light">
+  {%block nav%}
       {% if conta %}
 
        <nav>
@@ -54,6 +55,7 @@
         <li><a href="/login">LOGIN </a></li>
         {% endif %}
         {% endif %}
+
  
   </ul>
   <div class="auth-buttons">
@@ -87,6 +89,7 @@
   </nav>
 
 {% endif %}
+{%endblock%}
 
 
     

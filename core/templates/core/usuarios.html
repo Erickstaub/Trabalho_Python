@@ -1,52 +1,75 @@
 {% extends 'core/base.html' %}
-{% load static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
-{% endblock %}
-
 {% block title %}Usuários{% endblock %}
 
 {% block content %}
 
 {% if conta.nivel == '3' %}
-<div class="container text-center mt-5">
-    <div class="table-container">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>CPF</th>
-                        <th>Ativo</th>
-                        <th>Nível de Acesso</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for u in usuarios %}
-                    <tr>
-                        <td>{{ u.nome }}</td>
-                        <td>{{ u.email }}</td>
-                        <td>{{ u.cpf }}</td>
-                        <td>{{ u.ativo }}</td>
-                        {% if u.nivel == '1' %}
-                        <td>Cliente</td>
-                        {% elif u.nivel == '2' %}
-                        <td>Funcionário</td>
-                        {% else %}
-                        <td>Administrador</td>
-                        {% endif %}
-                        <td><a href="/usuarios/{{ u.id }}/editar" class="edit-button">Editar</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="container mt-5">
+
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Lista de Usuários</h4>
+            <a href="/usuarios/novo" class="btn btn-success">
+                + Novo Usuário
+            </a>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Status</th>
+                            <th>Nível</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in usuarios %}
+                        <tr>
+                            <td>{{ u.nome }}</td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.cpf }}</td>
+
+                            <td>
+                                {% if u.ativo %}
+                                    <span class="badge bg-success">Ativo</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Inativo</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if u.nivel == '1' %}
+                                    <span class="badge bg-primary">Cliente</span>
+                                {% elif u.nivel == '2' %}
+                                    <span class="badge bg-warning text-dark">Funcionário</span>
+                                {% else %}
+                                    <span class="badge bg-dark">Administrador</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="/usuarios/{{ u.id }}/editar"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Editar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
-    <button class="addusuario" onclick="window.location.href='/usuarios/novo'">+</button>
+
 </div>
+
 {% else %}
 <div class="container text-center mt-5">
     <h1>Acesso Negado</h1>
