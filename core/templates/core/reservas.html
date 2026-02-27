@@ -1,46 +1,90 @@
-{%extends "core/base.html"%}
-{%block title%}Reservas{%endblock%}
-{%block content%}
-{%if conta.nivel > "1"%}
-<div class="container text-center mt-5">
-    
-    {% if reservas|length == 0 %}
-        <p class="mt-4">Sem reservas.</p>
-    {% else %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Sala</th>
-                <th>Usuário</th>
-                <th>Data da Reserva</th>
-                <th>Hora de Início</th>
-                <th>Hora de Fim</th>
-                <th>Multas</th>
-                <th>Preco</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for reserva in reservas %}
-            <tr>
-                <td>{{ reserva.sala.numsala }}</td>
-                <td>{{ reserva.usuario.nome }}</td>
-                <td>{{ reserva.data_reserva }}</td>
-                <td>{{ reserva.hora_inicio }}</td>
-                <td>{{ reserva.hora_fim }}</td>
-                {% if reserva.multa %}
-                <td>{{ reserva.multa }}</td>
-                {% else %}
-                <td>0</td>
-                {% endif %}
-                <td>R$ {{ reserva.sala.preco }}</td>
-                <td><a href="/reservas/{{ reserva.id }}/gerenciar" class="edit-button">Gerenciar</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    {% endif %}
-    {%else%}
-        <p class="mt-4">Acesso negado.</p>
-    {% endif %}
+{% extends "core/base.html" %}
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+
+{% if conta.nivel > "1" %}
+<div class="container mt-5">
+
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white text-center">
+            <h4 class="mb-0">Lista de Reservas</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if reservas|length == 0 %}
+                <div class="alert alert-info text-center">
+                    Nenhuma reserva encontrada.
+                </div>
+            {% else %}
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sala</th>
+                            <th>Usuário</th>
+                            <th>Data</th>
+                            <th>Início</th>
+                            <th>Fim</th>
+                            <th>Multa</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas %}
+                        <tr>
+                            <td>{{ reserva.sala.numsala }}</td>
+                            <td>{{ reserva.usuario.nome }}</td>
+                            <td>{{ reserva.data_reserva }}</td>
+                            <td>{{ reserva.hora_inicio }}</td>
+                            <td>{{ reserva.hora_fim }}</td>
+
+                            <td>
+                                {% if reserva.multa and reserva.multa > 0 %}
+                                    <span class="badge bg-danger">
+                                        R$ {{ reserva.multa }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-success">
+                                        R$ 0
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    R$ {{ reserva.sala.preco }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <a href="/reservas/{{ reserva.id }}/gerenciar"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Gerenciar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
 </div>
-{%endblock%}
+
+{% else %}
+<div class="container text-center mt-5">
+    <div class="alert alert-danger">
+        Acesso negado.
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

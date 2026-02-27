@@ -1,42 +1,83 @@
 {% extends 'core/base.html' %}
-
 {% block title %}Minhas Reservas{% endblock %}
 
 {% block content %}
-   
-    {% if conta.nivel %}
-<div class="container text-center mt-5">
-    <h2>Minhas Reservas</h2>
-    {% if reservas %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Sala</th>
-                    <th>Data</th>
-                    <th>Hora Início</th>
-                    <th>Hora Fim</th>
-                    <th>Multa</th>
-                    <th>Preco Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reserva in reservas %}
-                    <tr>
-                        <td>{{ reserva.sala.numsala }}</td>
-                        <td>{{ reserva.data_reserva }}</td>
-                        <td>{{ reserva.hora_inicio }}</td>
-                        <td>{{ reserva.hora_fim }}</td>
-                        <td>{{ reserva.multa }}</td>
-                        <td>{{ reserva.preco_total }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Nenhuma reserva encontrada.</p>
-    {% endif %}
-    {% else %}
-    <p>Faça login para ver suas reservas.</p>
-    {% endif %}
+
+{% if conta.nivel %}
+<div class="container mt-5">
+
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Minhas Reservas</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if reservas %}
+                <div class="table-dark">
+                    <table class="table table-striped table-hover table-bordered align-middle text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Sala</th>
+                                <th>Data</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                                <th>Multa</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in reservas %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-secondary">
+                                            {{ reserva.sala.numsala }}
+                                        </span>
+                                    </td>
+
+                                    <td>{{ reserva.data_reserva }}</td>
+                                    <td>{{ reserva.hora_inicio }}</td>
+                                    <td>{{ reserva.hora_fim }}</td>
+
+                                    <td>
+                                        {% if reserva.multa and reserva.multa > 0 %}
+                                            <span class="badge bg-danger">
+                                                R$ {{ reserva.multa }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-success">
+                                                R$ 0
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-primary">
+                                            R$ {{ reserva.preco_total }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center">
+                    Nenhuma reserva encontrada.
+                </div>
+            {% endif %}
+
+        </div>
     </div>
+
+</div>
+
+{% else %}
+<div class="container mt-5 text-center">
+    <div class="alert alert-warning">
+        Faça login para ver suas reservas.
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}

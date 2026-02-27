@@ -1,74 +1,116 @@
 {% extends 'core/base.html' %}
-
 {% block title %}Salas{% endblock %}
 
 {% block content %}
-{%if conta.nivel %}
- 
-   
 
-    
+{% if conta.nivel %}
+<div class="container mt-5">
+
     {% if salas|length == 0 %}
-        <div class="container text-center mt-5">
-            <h1 class="mb-4 text-primary">NENHUMA SALA REGISTRADA</h1>
+
+        <div class="text-center">
+            <div class="alert alert-info shadow">
+                <h4 class="mb-3">Nenhuma sala registrada</h4>
+
                 {% if conta.nivel > "1" %}
-                <a href="/salas/criar" class="btn btn-primary mb-3">+</a>
+                    <a href="/salas/criar" class="btn btn-primary">
+                        + Criar Nova Sala
+                    </a>
                 {% endif %}
-        </div> 
+            </div>
+        </div>
+
     {% else %}
-    <div class="container text-center mt-5">
-      
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Numero da Sala</th>
-                    <th>Recursos</th>
-                    <th>Capacidade</th>
-                    <th>Disponibilidade</th>
-                    <th>Preço</th>
-                   
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sala in salas %}
-                <tr>
-                    <td>{{ sala.numsala }}</td>
-                    <td>
 
-                        {% for recurso in sala.recursos.all %}
-                        {{ recurso.nome }}{% if not forloop.last %}, {% endif %}
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Lista de Salas</h4>
+
+            {% if conta.nivel > "1" %}
+                <a href="/salas/criar" class="btn btn-success">
+                    + Nova Sala
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Número</th>
+                            <th>Recursos</th>
+                            <th>Capacidade</th>
+                            <th>Status</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sala in salas %}
+                        <tr>
+                            <td>{{ sala.numsala }}</td>
+
+                            <td>
+                                {% for recurso in sala.recursos.all %}
+                                    <span class="badge bg-secondary">
+                                        {{ recurso.nome }}
+                                    </span>
+                                {% empty %}
+                                    <span class="text-muted">Sem recursos</span>
+                                {% endfor %}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    {{ sala.capacidade }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if sala.disponivel %}
+                                    <span class="badge bg-success">
+                                        Disponível
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        Indisponível
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    R$ {{ sala.preco }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if conta.nivel > "1" %}
+                                    <a href="/salas/{{ sala.id }}/editar"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Editar
+                                    </a>
+                                {% endif %}
+
+                                <a href="/salas/{{ sala.id }}/reservar"
+                                   class="btn btn-sm btn-outline-success">
+                                    Reservar
+                                </a>
+                            </td>
+
+                        </tr>
                         {% endfor %}
-                    </td>
-                    </td>   
-                    <td>{{ sala.capacidade }}</td>
-                    {% if sala.disponivel %}
-                        <td>Sim</td>
-                    {% else %}
-                        <td>Não</td>
-                    {% endif %}
-                    <td>{{ sala.preco }}</td>
-                   
-                    {% if conta.nivel > "1" %}
-                    <td><a href="/salas/{{ sala.id }}/editar" class="edit-button">Editar</a>
+                    </tbody>
+                </table>
+            </div>
 
-                    <a href="/salas/{{ sala.id }}/reservar" class="edit-button" >Resevar</a>
-                        </td>
-                    {% else %}
-                    <td><a href="/salas/{{ sala.id }}/reservar" class="edit-button" >Resevar</a></td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% if conta.nivel > "1" %}
-
-        <button class="addsala" onclick="window.location.href='/salas/criar'">+</button>
-        {% endif %}
-    
+        </div>
     </div>
-   
+
+    {% endif %}   
+</div>
 {% endif %}
-{% endif %}
+
 {% endblock %}
-    
