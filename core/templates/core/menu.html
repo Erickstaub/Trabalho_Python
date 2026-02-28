@@ -1,32 +1,54 @@
+
 {% extends 'core/base.html' %}
-{% load static %}
-
-{% block title %}Menu{% endblock %}
-
+{% block title %}Menu {% endblock %}
 {% block content %}
 
 {% if conta %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
 
-<link rel="stylesheet" href="{% static 'core/menu.css' %}">
+<div class="hero">
+    <div class="hero-content">
+        
 
-<div class="container text-center mt-5">
-
-    {% if conta.nivel == '1' %}
-        <button>Salas Reservadas</button>
-        <button>Reservar Salas</button>
-
-    {% elif conta.nivel == '2' %}
-        <button>Nova Sala</button>
-        <button>Salas Reservadas</button>
-        <button>Reservar Salas</button>
-
-    {% elif conta.nivel == '3' %}
-        <div class="admin-button">
-            <button onclick="window.location.href='/usuarios'">Usuarios</button>
-            <button onclick="window.location.href='/salas'">Salas</button>
+        <h1>Bem-vindo ao Sistema de Cadastro de Aulas</h1>
+ 
+        <p>
+            Gerencie salas, reservas e usuários de forma simples e organizada.
+        </p>
+        <div>
+            <p>
+                "O objetivo da educação é substituir uma mente vazia por uma mente aberta."
+            </p>
         </div>
-    {% endif %}
 
+        <div class="hero-buttons">
+
+            {% if conta.nivel == '1' %}
+                <button onclick="window.location.href='/minhas-reservas'">
+                    Minhas Reservas
+                </button>
+
+                <button onclick="window.location.href='/reservar'">
+                    Reservar Sala
+                </button>
+
+            {% elif conta.nivel == '2' %}
+                <button onclick="window.location.href='/nova-sala'">
+                    Cadastrar Nova Sala
+                </button>
+
+                <button onclick="window.location.href='/reservas'">
+                    Ver Reservas
+                </button>
+
+            {% elif conta.nivel == '3' %}
+                
+            {% endif %}
+
+        </div>
+
+    </div>
 </div>
 
 {% else %}

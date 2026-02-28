@@ -1,6 +1,9 @@
-/* ===== FUNDO ===== */
+/* =========================
+   FUNDO PADRÃO
+========================= */
+
 body {
-    margin: 0;
+    margin: 10px;
     padding: 0;
 
     background-image: url("/static/core/img/fundo.jpg");
@@ -13,158 +16,262 @@ body {
     color: #ffffff;
 }
 
-/* ===== CONTAINER ===== */
+
+/* =========================
+   CONTAINER GLASS
+========================= */
+
 .container {
-    margin-top: 50px;
-    padding: 40px;
+    margin-top: 100px;
+    padding: 50px;
+
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.2);
+
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
     animation: fadeIn 0.8s ease-in-out;
 }
 
-/* ===== TABELA ===== */
-.table-container {
-    overflow-x: auto;
+
+/* =========================
+   REMOVE VISUAL PADRÃO CARD
+========================= */
+
+.card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 8px;
-    overflow: hidden;
+.card-body {
+    padding: 0;
 }
 
-thead {
-    background-color: rgba(74, 214, 224, 0.4);
+
+/* =========================
+   TÍTULO + BOTÃO
+========================= */
+
+h4 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-thead th {
-    color: #fff;
-    text-align: left;
-    padding: 12px;
-}
-
-tbody td {
-    padding: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    color: #ffffff;
-}
-
-tbody tr:hover {
-    background-color: rgba(74, 214, 224, 0.1);
-}
-
-/* ===== BOTÕES ===== */
-.edit-button, .addusuario {
+.btn-success {
     background-color: #4ad6e0;
     color: #ffffff;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
+    padding: 10px 25px;
     font-weight: bold;
+    border-radius: 4px;
     transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
 }
 
-.edit-button:hover, .addusuario:hover {
+.btn-success:hover {
     background-color: #4197ac;
-    box-shadow: 0 6px 15px rgba(57,145,218,0.6);
     transform: scale(1.05);
-}
-
-<<<<<<< HEAD
-/* ===== BOTÃO + NOVO USUÁRIO ===== */
-.addusuario {
-    font-size: 24px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-=======
-
-
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal.active {
-    display: flex;
-}
-.modal-content {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-   
-}
-
-.modal-content .confirm-delete-button {
-    background: #e53935;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 16px;
-}
-
-.modal-content .cancel-delete-button {
-    background: #ccc;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-.modal-content .confirm-delete-button:hover {
-    background: #d32f2f;
+    box-shadow: 0 8px 20px rgba(57, 145, 218, 0.6);
 }
 
 
+/* =========================
+   TABELA ESTILO GLASS
+========================= */
 
-.addusuario{
-
->>>>>>> cb5e48eda3561ec9d414605955071f9bbf53f81b
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ===== ACESSO NEGADO ===== */
-.container h1 {
-    color: #e50914;
-    margin-bottom: 15px;
-}
-
-.container p {
+.table {
+    background: rgba(0,0,0,0.3);
     color: #ffffff;
 }
 
-<<<<<<< HEAD
-/* ===== ANIMAÇÃO ===== */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.table thead {
+    background: rgba(0,0,0,0.6);
 }
-=======
+
+.table th,
+.table td {
+    border-color: rgba(255,255,255,0.2);
+}
+
+.table tbody tr {
+    transition: 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(74, 214, 224, 0.15);
+    transform: scale(1.01);
+}
+
+
+/* =========================
+   BOTÃO EDITAR
+========================= */
+
+.btn-outline-primary {
+    border-color: #4ad6e0;
+    color: #4ad6e0;
+    transition: 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4ad6e0;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.bg-success {
+    background-color: #28c76f !important;
+}
+
+.bg-danger {
+    background-color: #ea5455 !important;
+}
+
+.bg-primary {
+    background-color: #4ad6e0 !important;
+}
+
+.bg-warning {
+    background-color: #ff9f43 !important;
+    color: #000 !important;
+}
+
+.bg-dark {
+    background-color: #333 !important;
+}
+
+
+/* =========================
+   ACESSO NEGADO
+========================= */
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #30b0be;
+}
+
+
+/* =========================
+   ANIMAÇÃO
+========================= */
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+/* ===== NAVBAR ===== */
+
+nav {
+    width: 100%;
+    background-color: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    border-bottom: 1px solid #d0d0d0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Lista da esquerda */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+nav ul li a:hover {
+    color: #4ad6e0;
+}
+
+/* Parte direita (usuário) */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.usu {
+    cursor: pointer;
+    font-weight: 600;
+    color: #111;
+}
+
+/* Foto perfil */
+.foto-perfil {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4ad6e0;
+}
+
+/* Dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 150px;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.dropdown a:hover {
+    background-color: #f1f1f1;
+}
 .foto-perfil {
     width: 35px;
     height: 35px;
@@ -177,32 +284,3 @@ tbody tr:hover {
     border-radius: 50%;
     object-fit: cover;
 }
-
-
-
-
-.anuncio {
-    position: fixed;
-    bottom: 40px;
-    left: 40px;
-  
-}
-.anuncio img {
-    width: 300px;
-    height: 300px;
-}
-.anuncio .xiszinho {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 5px 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-
->>>>>>> cb5e48eda3561ec9d414605955071f9bbf53f81b
