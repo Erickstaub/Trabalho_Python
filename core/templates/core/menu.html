@@ -1,25 +1,30 @@
-
 {% extends 'core/base.html' %}
-{% block title %}Menu {% endblock %}
+{% load static %}
+
+{% block title %}Menu{% endblock %}
+
 {% block content %}
 
 {% if conta %}
-{% load static %}
 <link rel="stylesheet" href="{% static 'core/usuarios.css' %}">
 
-<div class="hero">
-    <div class="hero-content">
-        
+<div class="card shadow container"> 
 
-        <h1>Bem-vindo ao Sistema de Cadastro de Aulas</h1>
- 
+
+
+       <h1 class="hero-title">Bem-vindo ao Sistema de Cadastro de Aulas</h1>
+
         <p>
             Gerencie salas, reservas e usuários de forma simples e organizada.
         </p>
-        <div>
-            <p>
-                "O objetivo da educação é substituir uma mente vazia por uma mente aberta."
-            </p>
+
+        <div class="quote-box">
+            <img src="{% static 'core/img/idea.gif' %}" alt="Educação em movimento" class="quote-gif">
+
+            <blockquote>
+                “O objetivo da educação é substituir uma mente vazia por uma mente aberta.”
+                <span>— Albert Einstein</span>
+            </blockquote>
         </div>
 
         <div class="hero-buttons">
@@ -42,8 +47,6 @@
                     Ver Reservas
                 </button>
 
-            {% elif conta.nivel == '3' %}
-                
             {% endif %}
 
         </div>
@@ -52,7 +55,7 @@
 </div>
 
 {% else %}
-    <p>Usuário não autenticado.</p>
+<p>Usuário não autenticado.</p>
 {% endif %}
 
 {% endblock %}

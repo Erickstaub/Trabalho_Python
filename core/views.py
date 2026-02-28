@@ -123,31 +123,38 @@ def criar_sala(request):
     try:
         usuario_id = request.session.get('usuario_id')
         usuario = Usuario.objects.get(id=usuario_id)
-
     except Usuario.DoesNotExist:
-        usuario = None
         return redirect('/')
-    sala = Sala.objects.all()
+
     recursos = Recurso.objects.all()
+
     if request.method == "POST":
         numsala = request.POST.get("numsala")
         capacidade = request.POST.get("capacidade")
         preco = request.POST.get("preco")
-        disponivel = request.POST.get("disponivel") == "on"
-        dia_nao_disponivel = request.POST.get("dia_nao_disponivel")
         recu = request.POST.getlist("recursos")
-        sala = Sala.objects.create(numsala=numsala,capacidade=capacidade,preco=preco,disponivel=True,dia_nao_disponivel=dia_nao_disponivel)
-        for recurso_id in recu:
-            recurso = Recurso.objects.get(id=recurso_id)
-            sala.recursos.add(recurso)
 
-        
+        # cria a sala (SEM dia_nao_disponivel)
+        sala = Sala.objects.create(
+            numsala=numsala,
+            capacidade=capacidade,
+            preco=preco,
+            disponivel=True
+        )
 
+        # associa os recursos (ManyToMany)
+        sala.recursos.set(recu)
 
         return redirect('/salas')
 
-    return render(request, "core/criarS.html", {'conta': usuario, 'salas': sala , 'recursos': recursos})
-
+    return render(
+        request,
+        "core/criarS.html",
+        {
+            'conta': usuario,
+            'recursos': recursos
+        }
+    )
 
 
 def logout(request):
