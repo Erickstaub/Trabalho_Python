@@ -279,7 +279,7 @@ def reservas(request):
         conta = None
         return redirect('/')
 
-    reservas = Reserva.objects.filter(usuario=conta)
+    reservas = Reserva.objects.filter()
 
     return render(request, "core/reservas.html", {'reservas': reservas, 'conta': conta})
 

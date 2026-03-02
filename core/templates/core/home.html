@@ -1,16 +1,43 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<link static="css/home.css" rel="stylesheet">
-<div class="container text-center mt-5">
 
-    <h1 class="mb-4 text-primary">HOME</h1>
+<link static="css/home.css" rel="stylesheet">
+
+
+
 
     <div class="d-grid gap-3 col-6 mx-auto">
         
     </div>
+    <div class="card shadow container"> 
 
-</div>
+
+
+       <h1 class="hero-title">Bem-vindo ao Sistema de Cadastro de Aulas</h1>
+
+        <p>
+            Gerencie salas, reservas e usuários de forma simples e organizada.
+        </p>
+
+        <div class="quote-box">
+            <img src="{% static 'core/img/idea.gif' %}" alt="Educação em movimento" class="quote-gif">
+
+            <blockquote>
+                “O objetivo da educação é substituir uma mente vazia por uma mente aberta.”
+                <span>— Albert Einstein</span>
+            </blockquote>
+        </div>
+
+        <div class="hero-buttons">
+
+     
+        </div>
+
+    </div>
+
+
 {% endblock %}
